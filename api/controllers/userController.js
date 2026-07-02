@@ -24,6 +24,18 @@ class UserController {
             res.status(400).send({ message: error.message });
         }
     }
+
+    static async getUserById(req, res) {
+        const { idUser } = req.params;
+
+        try {
+            const user = await userService.getUserById(idUser);
+
+            res.status(200).send(user);
+        } catch (error) {
+            res.status(400).send({ message: error.message });
+        }
+    }
 }
 
 module.exports = UserController;

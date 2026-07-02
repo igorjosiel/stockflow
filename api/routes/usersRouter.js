@@ -7,7 +7,7 @@ const router = Router();
 router
     .post("/users", UserController.registerUser)
     .get("/users", UserController.getAllUsers)
-    .get("/users/:id")
+    .get("/users/:idUser", UserController.getUserById)
     .put("/users/:id")
     .delete("/users/:id");
 

@@ -1,6 +1,6 @@
 const database = require("../models");
 const { hash } = require("bcryptjs");
-const uuid = require("uuid");
+const { uuid, validate } = require("uuid");
 
 class UserService {
     async registerUser(dto) {
@@ -37,6 +37,24 @@ class UserService {
             return users;
         } catch (error) {
             throw new Error("Erro ao buscar os usuários.");
+        }
+    }
+
+    async getUserById(idUser) {
+        if (!idUser || !validate(idUser)) {
+            throw new Error("Id inválido.");
+        }
+
+        try {
+            const user = await database.users.findByPk(idUser);
+
+            if (!user) {
+                throw new Error("Usuário não encontrado.");
+            }
+
+            return user;
+        } catch (error) {
+            throw new Error("Erro ao buscar o usuário.");
         }
     }
 }
