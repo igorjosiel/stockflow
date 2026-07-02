@@ -3,7 +3,7 @@ const { hash } = require("bcryptjs");
 const uuid = require("uuid");
 
 class UserService {
-    async register(dto) {
+    async registerUser(dto) {
         const user = await database.users.findOne({
             where: {
                 email: dto.email
@@ -27,6 +27,16 @@ class UserService {
             return newUser;
         } catch (error) {
             throw new Error("Erro ao cadastrar o usuário.");
+        }
+    }
+
+    async getAllUsers() {
+        try {
+            const users = await database.users.findAll();
+
+            return users;
+        } catch (error) {
+            throw new Error("Erro ao buscar os usuários.");
         }
     }
 }
