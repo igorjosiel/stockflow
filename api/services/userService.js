@@ -1,6 +1,6 @@
 const database = require("../models");
 const { hash } = require("bcryptjs");
-const { uuid, validate } = require("uuid");
+const { v4, validate } = require("uuid");
 
 class UserService {
     async registerUser(dto) {
@@ -18,7 +18,7 @@ class UserService {
             const passwordHash = await hash(dto.password, 8);
 
             const newUser = await database.users.create({
-                id: uuid.v4(),
+                id: v4(),
                 name: dto.name,
                 email: dto.email,
                 password: passwordHash
@@ -53,6 +53,24 @@ class UserService {
             }
 
             return user;
+        } catch (error) {
+            throw new Error("Erro ao buscar o usuário.");
+        }
+    }
+
+    async deleteUser(idUser) {
+        if (!idUser || !validate(idUser)) {
+            throw new Error("Id inválido.");
+        }
+
+        try {
+            await database.users.destroy({
+                where: {
+                    id: idUser
+                }
+            });
+
+            return;
         } catch (error) {
             throw new Error("Erro ao buscar o usuário.");
         }

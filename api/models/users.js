@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING
   }, {
     sequelize,
+    paranoid: true,
+    deletedAt: 'destroyTime',
     modelName: 'users',
     defaultScope: {
       attributes: {
