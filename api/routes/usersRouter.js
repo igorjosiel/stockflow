@@ -1,11 +1,13 @@
 const { Router } = require("express");
 
 const UserController = require("../controllers/userController.js");
+const validateJwtToken = require('../middlewares/validateJwtToken.js');
 
 const router = Router();
 
+router.use(validateJwtToken);
+
 router
-    .post("/users", UserController.registerUser)
     .get("/users", UserController.getAllUsers)
     .get("/users/:idUser", UserController.getUserById)
     // .put("/users/:id", UserController.updateUser)

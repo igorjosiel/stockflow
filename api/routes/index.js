@@ -1,12 +1,12 @@
 const bodyParser = require('body-parser');
 const produto = require('./produtoRoute');
 const usersRouter = require("./usersRouter");
-const authRouter = require("./authRouter");
+const publicRoutesRouter = require("./publicRoutesRouter");
 
 module.exports = app => {
   app.use(
     bodyParser.json(),
-    authRouter,
+    publicRoutesRouter,
     produto,
     usersRouter
   );
